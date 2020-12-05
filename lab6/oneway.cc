@@ -144,10 +144,6 @@ char *Railway::set_shm(key_t shm_key, int shm_num, int shm_flg) {
 Railway::Railway(int r, int m1d) {
     rate = r;
     MAX_1d = m1d;
-    on_cnt = 0;
-    pass_cnt = 0;
-    S_waiting = 0;
-    N_waiting = 0;
     //
     int ipc_flg = IPC_CREAT | 0644;
     int shm_key = 220;
