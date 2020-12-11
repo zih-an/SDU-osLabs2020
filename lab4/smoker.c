@@ -31,7 +31,7 @@ int main(int argc, char* argv[]) {
     // 消费者同步+互斥
     sem_val = 0;
     cons_sem = set_sem(cons_key, sem_val, sem_flg);
-    sem_val = 1;
+    sem_val = 3;
     cmtx_sem = set_sem(cmtx_key, sem_val, sem_flg);
     // 生产者同步
     sem_val = buff_num;
@@ -39,9 +39,9 @@ int main(int argc, char* argv[]) {
 
     while(1) {
         down(cons_sem);  // 没有满，阻塞
-        down(cmtx_sem);  // 只允许一个smoker
-        sleep(rate);
+        down(cmtx_sem);  // 同时允许3个smoker，但只有一个会满足
         int flag = 0;
+        sleep(rate);
         if( (buff_ptr[0] == (mtl+1)%3 && buff_ptr[1] == (mtl+2)%3)
             || (buff_ptr[1] == (mtl+1)%3 && buff_ptr[0] == (mtl+2)%3) ){
             printf("[%s smoker] SMOKE!\n", matrials[mtl]);
